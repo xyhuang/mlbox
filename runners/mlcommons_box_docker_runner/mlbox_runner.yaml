@@ -1,0 +1,31 @@
+schema_version: 1.0.0
+schema_type: mlbox_runner
+
+name: mlbox_docker_runner
+author: MLPerf Best Practices Working Group
+version: 0.1.0
+mlbox_runner_spec_version: 0.1.0
+
+spec:
+  platform:
+    type: docker
+    # the Docker versions that the runner can support
+    # a runner should check version compatibility between the mlbox,
+    # the runner and the platform
+    version_filter:
+      min: null
+      max: null
+      good_list: ["19.03", "18.09", "18.06"]
+      bad_list: []
+  config:
+    # the exec_types lists the supported ways in which the runner can
+    # execute an action. each item in the list corresponds to a pre-defiend
+    # schema which can be used to validate a runner config.
+    exec_types:
+    - "cli"
+    # the actions that the runner can take, the actions are used as
+    # runner subcommand
+    actions:
+    - "config"
+    - "dry-run"
+    - "run"
