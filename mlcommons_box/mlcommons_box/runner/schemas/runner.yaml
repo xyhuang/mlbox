@@ -1,0 +1,148 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+
+definitions:
+
+  container_env:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      value: {}
+
+  container_mount:
+    type: "object"
+    properties:
+      source:
+        type: "string"
+      destination:
+        type: "string"
+      options:
+        type: "array"
+        items:
+          type: "string"
+
+  exec_config:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+      parameters:
+        type: "array"
+        items:
+          $ref: "#/definitions/parameter"
+      container:
+        $ref: "#/definitions/exec_interface_container"
+      cli:
+        $ref: "#/definitions/exec_interface_cli"
+
+  exec_interface_cli:
+    type: "object"
+    properties:
+      command:
+        type: "string"
+
+  exec_interface_container:
+    type: "object"
+    properties:
+      runtime:
+        type: "string"
+      image:
+        type: "string"
+      command:
+        type: "string"
+      args:
+        type: "array"
+        items:
+          type: "string"
+      env:
+        type: "array"
+        items:
+          $ref: "#definitions/container_env"
+      mounts:
+        type: "array"
+        items:
+          $ref: "#definitions/container_mount"
+
+  parameter:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      value: {}
+
+  platform_config:
+    type: "object"
+    properties:
+      schema_version:
+        type: "string"
+      schema_type:
+        type: "string"
+      platform:
+        $ref: "#/definitions/platform_metadata"
+      resources:
+        $ref: "#/definitions/resource_config"
+      runner_configs:
+        type: "array"
+        items:
+          $ref: "#/definitions/runner_config"
+    required:
+    - "schema_version"
+    - "schema_type"
+    - "platform"
+    - "runner_configs"
+
+  platform_metadata:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      version_filter:
+        type: "object"
+        properties:
+          min:
+            type: "string"
+          max:
+            type: "string"
+          good_list:
+            type: "array"
+            items:
+              type: "string"
+          bad_list:
+            type: "array"
+            items:
+              type: "string"
+    required:
+    - "name"
+    - "version_filter"
+
+  resource_config:
+    type: "object"
+    properties:
+      cpus:
+        type: "number"
+      gpus:
+        type: "number"
+
+  runner_config:
+    type: "object"
+    properties:
+      action:
+        type: "string"
+      task:
+        type: "string"
+      exec:
+        $ref: "#/definitions/exec_config"
+
+  runner_description:
+    type: "object"
+    properties:
+      schema_version:
+        type: "string"
+      schema_type:
+        type: "string"
+      platform:
+        $ref: "#/definitions/platform_metadata"
+    required:
+      - "schema_version"
+      - "schema_type"
+      - "platform"
