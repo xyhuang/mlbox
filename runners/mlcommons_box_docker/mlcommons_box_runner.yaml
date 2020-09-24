@@ -1,0 +1,10 @@
+schema_type: mlcommons_box_runner
+schema_version: 0.1.0
+
+platform:
+  name: "docker"
+  version_filter:
+    min: null
+    max: null
+    good_list: ["19.03"]
+    bad_list: []
