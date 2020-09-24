@@ -7,11 +7,12 @@ import typing
 class BaseField(abc.ABC):
 
     @abc.abstractmethod
-    def default(self):
+    def get_default_value(self):
         return NotImplementedError
 
     @abc.abstractmethod
-    def from_primitive(self, primitive):
+    def get_value_from_primitive(self,
+            primitive: typing.Any=None) -> typing.Any:
         return NotImplementedError
 
 
@@ -21,35 +22,27 @@ class ObjectField(BaseField):
         self.object_class = obj_class
         self.embedded = embedded
 
-    def default(self):
-        instance = self.object_class()
+    def get_default_value(self) -> 'BaseObject':
+        instance = self.object_class().default()
         return instance
 
-    def from_primitive(self, primitive):
-        instance = self.object_class(primitive=primitive)
+    def get_value_from_primitive(self,
+            primitive: typing.Any=None) -> 'BaseObject':
+        instance = self.object_class().from_primitive(primitive=primitive)
         return instance
 
 
 class PrimitiveField(BaseField):
 
-    def __init__(self, default_value: typing.Optional[typing.Any]=None):
-        self.default_value = default_value
+    def __init__(self, default: typing.Any=None):
+        self.default_value = default
 
-    def validate(self, primitive):
-        # TODO: implement proper validation
-        return True
+    def get_default_value(self) -> typing.Any:
+        return self.default_value
 
-    def default(self):
-        result = None
-        if self.default_value is not None:
-            result = self.default_value
-        return result
-
-    def from_primitive(self, primitive):
-        instance = self.default()
-        if not self.validate(primitive):
-            raise ValueError("Validation failed for {}".format(
-                    self.__class__.__name__))
+    def get_value_from_primitive(self,
+            primitive: typing.Any=None) -> typing.Any:
+        instance = self.get_default_value()
         if primitive is not None:
             instance = primitive
         return instance
@@ -57,27 +50,22 @@ class PrimitiveField(BaseField):
 
 class BaseObject(abc.ABC):
 
-    def __init__(self, primitive=None):
-        if primitive is None:
-            self.init_default()
-        else:
-            self.init_from_primitive(primitive)
-
     @classmethod
     @abc.abstractmethod
-    def validate(cls, primitive):
+    def validate(cls, primitive: typing.Any) -> bool:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def init_default(self):
+    def default(self) -> 'BaseObject':
         raise NotImplementedError
 
     @abc.abstractmethod
-    def init_from_primitive(self, primitive):
+    def from_primitive(self,
+            primitive: typing.Any) -> 'BaseObject':
         raise NotImplementedError
 
     @abc.abstractmethod
-    def merge(self, overlay):
+    def merge(self, overlay: typing.Any) -> 'BaseObject':
         raise NotImplementedError
 
 
@@ -86,36 +74,38 @@ class StandardObject(BaseObject):
     fields = {}
 
     @classmethod
-    def validate(cls, primitive):
+    def validate(cls, primitive: typing.Any) -> bool:
         # TODO: implement proper validation
         if not isinstance(primitive, dict):
             return False
         return True
 
-    def init_default(self):
+    def default(self) -> 'StandartObject':
         if self.fields is None:
             self.fields = {}
         for fld_name, fld in self.fields.items():
-            attr = fld.default()
+            attr = fld.get_default_value()
             setattr(self, fld_name, attr)
             if isinstance(fld, ObjectField) and fld.embedded is True:
                 self._embed_object(attr)
+        return self
 
-    def init_from_primitive(self, primitive):
+    def from_primitive(self, primitive: typing.Any) -> 'StandardObject':
         if not self.validate(primitive):
             raise ValueError("Validation failed for {}".format(
-                    self.obj_class.__name__))
+                    self.__class__.__name__))
         for fld_name, fld in self.fields.items():
             if isinstance(fld, ObjectField) and fld.embedded is True:
-                attr = fld.from_primitive(primitive)
+                attr = fld.get_value_from_primitive(primitive)
                 setattr(self, fld_name, attr)
                 self._embed_object(attr)
             else:
-                attr = fld.default()
+                attr = fld.get_default_value()
                 prim_fld_val = primitive.get(fld_name, None)
                 if prim_fld_val is not None:
-                    attr = fld.from_primitive(prim_fld_val)
+                    attr = fld.get_value_from_primitive(prim_fld_val)
                 setattr(self, fld_name, attr)
+        return self
 
     def _embed_object(self, obj):
         # Embed an object by copying its attributes to the current (parent)
@@ -128,9 +118,9 @@ class StandardObject(BaseObject):
                     subattr = getattr(obj, subfld_name)
                     setattr(self, subfld_name, subattr)
 
-    def merge(self, overlay):
+    def merge(self, overlay: typing.Any) -> 'StandardObject':
         def _merge_list(base, overlay):
-            result = base or {}
+            result = base or []
             result.extend(overlay)
             return result
         def _merge_dict(base, overlay):
@@ -156,45 +146,94 @@ class StandardObject(BaseObject):
             elif overlay_attr is not None:
                 attr = overlay_attr
             setattr(self, attr_name, attr)
+        return self
 
 
-class StandardObjectList(BaseObject):
+class ListOfObject(BaseObject):
 
     item_class = StandardObject
 
-    def __init__(self, primitive=None):
-        self.data = []
-        super(StandardObjectList, self).__init__(primitive=primitive)
+    def __init__(self):
+        self._data = []
+        super(ListOfObject, self).__init__()
 
-    def __repr__(self): return repr(self.data)
-    def __len__(self): return len(self.data)
+    def __repr__(self): return repr(self._data)
+    def __len__(self): return len(self._data)
     def __getitem__(self, i):
         if isinstance(i, slice):
-            return self.__class__(self.data[i])
+            return self.__class__(self._data[i])
         else:
-            return self.data[i]
+            return self._data[i]
 
     @classmethod
-    def validate(cls, primitive):
+    def validate(cls, primitive: typing.Any) -> bool:
         # TODO: implement proper validation
         if not isinstance(primitive, list):
             return False
         return True
 
-    def init_default(self):
-        if self.item_class is None:
-            self.item_class = StandardObject
+    def default(self) -> 'ListOfObject':
+        self._data = []
+        return self
 
-    def init_from_primitive(self, primitive):
+    def from_primitive(self, primitive: typing.Any) -> 'ListOfObject':
         if not self.validate(primitive):
             raise ValueError("Validation failed for {}".format(
-                    self.obj_class.__name__))
+                    self.__class__.__name__))
         for item in primitive:
             if item is not None:
-                obj_instance = self.item_class(item)
-                self.data.append(obj_instance)
+                obj_instance = self.item_class().from_primitive(item)
+                self._data.append(obj_instance)
+        return self
 
-    def merge(self, overlay):
+    def merge(self, overlay: typing.Any) -> 'ListOfObject':
         if not isinstance(overlay, self.__class__):
             raise TypeError("Cannot merge instances of different classes.")
-        self.data.extend(overlay)
+        self._data.extend(overlay)
+        return self
+
+
+class DictOfObject(BaseObject):
+
+    value_class = StandardObject
+
+    def __init__(self):
+        self._data = {}
+        super(DictOfObject, self).__init__()
+
+    def __repr__(self): return repr(self._data)
+    def __len__(self): return len(self._data)
+    def __getitem__(self, key):
+        if key in self._data:
+            return self._data[key]
+        if hasattr(self.__class__, "__missing__"):
+            return self.__class__.__missing__(self, key)
+        raise KeyError(key)
+
+    @classmethod
+    def validate(cls, primitive: typing.Any) -> bool:
+        # TODO: implement proper validation
+        if not isinstance(primitive, dict):
+            return False
+        return True
+
+    def default(self):
+        self._data = {}
+        return self
+
+    def from_primitive(self, primitive: typing.Any) -> 'DictOfObject':
+        if not self.validate(primitive):
+            raise ValueError("Validation failed for {}".format(
+                    self.__class__.__name__))
+        for key, value in primitive.items():
+            if value is not None:
+                obj_instance = self.value_class().from_primitive(value)
+                self._data[key] = obj_instance
+
+    def merge(self, overlay: typing.Any) -> 'DictOfObject':
+        if not isinstance(overlay, self.__class__):
+            raise TypeError("Cannot merge instances of different classes.")
+        for key, value in overlay.items():
+            self._data.setdefault(value)
+            self._data[key].merge(value)
+        return self

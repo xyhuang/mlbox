@@ -57,7 +57,8 @@ def _load_platform_config(filepath):
     except Exception:
         raise
     try:
-        config_instance = platform_config.PlatformConfig(primitive=config_dict)
+        config_instance = platform_config.PlatformConfig()
+        config_instance.from_primitive(config_dict)
     except Exception:
         raise
     return config_instance

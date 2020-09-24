@@ -8,7 +8,7 @@ class EnvironmentVariable(base.StandardObject):
     }
 
 
-class EnvironmentVariableList(base.StandardObjectList):
+class EnvironmentVariableList(base.ListOfObject):
     item_class = EnvironmentVariable
 
 

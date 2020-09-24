@@ -11,7 +11,7 @@ class Parameter(base.StandardObject):
     }
 
 
-class ParameterList(base.StandardObjectList):
+class ParameterList(base.ListOfObject):
     item_class = Parameter
 
 
@@ -40,7 +40,7 @@ class RunnerConfig(base.StandardObject):
     }
 
 
-class RunnerConfigList(base.StandardObjectList):
+class RunnerConfigList(base.ListOfObject):
     item_class = RunnerConfig
 
 
