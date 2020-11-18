@@ -1,7 +1,4 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -13,10 +10,11 @@
       
       
       
+      
         <meta name="author" content="<MLPerf.org> mlperf@googlegroups.com">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.13">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
     
     
       
@@ -24,13 +22,17 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.077507d7.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.21aed14c.min.css">
       
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
       
     
     
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -47,9 +49,14 @@
   </head>
   
   
-    <body dir="ltr">
-  
     
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -65,7 +72,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="../.." title="MLBox" class="md-header-nav__button md-logo" aria-label="MLBox">
       
@@ -99,7 +108,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -127,8 +136,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -139,7 +146,9 @@
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="MLBox" class="md-nav__button md-logo" aria-label="MLBox">
       
@@ -158,7 +167,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." title="Home" class="md-nav__link">
+    <a href="../.." class="md-nav__link">
       Home
     </a>
   </li>
@@ -171,8 +180,7 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
     <label class="md-nav__link" for="nav-2">
       Getting Started
       <span class="md-nav__icon md-icon"></span>
@@ -191,7 +199,19 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/hello-world/" title="Hello World" class="md-nav__link">
+    <a href="../../getting-started/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/hello-world/" class="md-nav__link">
       Hello World
     </a>
   </li>
@@ -203,7 +223,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/mnist/" title="MNIST" class="md-nav__link">
+    <a href="../../getting-started/mnist/" class="md-nav__link">
       MNIST
     </a>
   </li>
@@ -223,8 +243,7 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     <label class="md-nav__link" for="nav-3">
       Runners
       <span class="md-nav__icon md-icon"></span>
@@ -243,7 +262,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Runners" class="md-nav__link">
+    <a href="../" class="md-nav__link">
       Runners
     </a>
   </li>
@@ -268,7 +287,7 @@
         <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Docker Runner" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       Docker Runner
     </a>
     
@@ -300,15 +319,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-command" class="md-nav__link">
-    Build command
+  <a href="#configuring-mlboxes" class="md-nav__link">
+    Configuring MLBoxes
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-command" class="md-nav__link">
-    Run command
+  <a href="#running-mlboxes" class="md-nav__link">
+    Running MLBoxes
   </a>
   
 </li>
@@ -326,7 +345,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../singularity-runner/" title="Singularity Runner" class="md-nav__link">
+    <a href="../singularity-runner/" class="md-nav__link">
       Singularity Runner
     </a>
   </li>
@@ -338,8 +357,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../ssh-runner/" title="SSH Runner" class="md-nav__link">
+    <a href="../ssh-runner/" class="md-nav__link">
       SSH Runner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes/" class="md-nav__link">
+      Kubernetes Runner
     </a>
   </li>
 
@@ -387,15 +418,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-command" class="md-nav__link">
-    Build command
+  <a href="#configuring-mlboxes" class="md-nav__link">
+    Configuring MLBoxes
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-command" class="md-nav__link">
-    Run command
+  <a href="#running-mlboxes" class="md-nav__link">
+    Running MLBoxes
   </a>
   
 </li>
@@ -411,9 +442,6 @@
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-                
-                
-                  
                 
                 
                 <h1 id="docker-runner">Docker Runner<a class="headerlink" href="#docker-runner" title="Permanent link">&para;</a></h1>
@@ -434,12 +462,12 @@ reference MNIST box is the following:
 configure and run phases:<br />
 - <strong>configure</strong>: <code>docker build ... --build-args http_proxy=${http_proxy} --build-args https_proxy=${https_proxy} ...</code><br />
 - <strong>run</strong>: <code>docker run ... -e http_proxy=${http_proxy} -e https_proxy=${https_proxy} ...</code>  </p>
-<h2 id="build-command">Build command<a class="headerlink" href="#build-command" title="Permanent link">&para;</a></h2>
+<h2 id="configuring-mlboxes">Configuring MLBoxes<a class="headerlink" href="#configuring-mlboxes" title="Permanent link">&para;</a></h2>
 <p>Docker runner uses <code>{MLCOMMONS_BOX_ROOT}/build</code> directory as the build context directory. This implies that all files
 that must be packaged in a docker image, must be located in that directory, including source files, python requirements,
 resource files, ML models etc. The docker recipe must have the standard name <code>Dockerfile</code>.</p>
-<p>In current implementation, only docker <code>build</code> is supported (i.e., Dockerfile must present). In future releases, Docker
-runner will support docker <code>pull</code> as well.</p>
+<p>If <code>Dockerfile</code> file exists in <code>{MLCOMMONS_BOX_ROOT}/build</code>, the Docker runner assumes that it needs to <code>build</code> a docker
+image. If that file does not exists, the Docker runner will try to <code>pull</code> image with the specified name.</p>
 <p>Docker runner under the hood runs the following command line:<br />
 <div class="highlight"><pre><span></span><code>cd {build_path}; docker build {env_args} -t {image_name} -f Dockerfile .
 </code></pre></div>
@@ -448,7 +476,14 @@ where:<br />
 - <code>{env_args}</code> is the arguments retrieved from user environment. Currently, only <code>http_proxy</code> and <code>https_proxy</code> are
   supported.<br />
 -  <code>{image_name}</code> is the image name defined in the platform configuration file.  </p>
-<h2 id="run-command">Run command<a class="headerlink" href="#run-command" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>The <code>configure</code> command is optional and users do not necessarily need to be aware about it. The Docker runner
+auto-detects if docker image exists before running a task, and if it does not exist, the docker runner runs the 
+<code>configure</code> command. During the <code>configure</code> phase, docker runner does not check if docker image exists. This means the
+following. If some of the implementation files have been modified, to rebuild the docker image users need to run
+the <code>configure</code> command explicitly.</p>
+</blockquote>
+<h2 id="running-mlboxes">Running MLBoxes<a class="headerlink" href="#running-mlboxes" title="Permanent link">&para;</a></h2>
 <p>Docker runner runs the following command:  <br />
 <div class="highlight"><pre><span></span><code>{docker_runtime} run --rm --net=host --privileged=true {volumes} {env_args} {image_name} {args}
 </code></pre></div>
@@ -478,7 +513,7 @@ where:  <br />
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../" title="Runners" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -493,7 +528,7 @@ where:  <br />
           </a>
         
         
-          <a href="../singularity-runner/" title="Singularity Runner" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../singularity-runner/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -526,15 +561,15 @@ where:  <br />
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
-      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
